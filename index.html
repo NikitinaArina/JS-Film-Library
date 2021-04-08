@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&family=Ranchers&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>JavaScript Film Library</header>
+    <main>
+      <div class="service">
+        <button
+          type="button"
+          class="btn_service"
+          onclick="return openService()"
+        >
+          Добавить фильм
+        </button>
+      </div>
+      <div class="add_film">
+        <form class="form">
+          <div class="form2">
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onkeyup="checkParams()"
+              required
+            />
+            <label>Название фильма</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="country"
+              id="country"
+              onkeyup="checkParams()"
+              required
+            />
+            <label>Страна</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="genre"
+              id="genre"
+              onkeyup="checkParams()"
+              required
+            /><label>Жанр</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="producer"
+              id="producer"
+              onkeyup="checkParams()"
+              required
+            />
+            <label>Режиссер</label>
+          </div>
+          <!--
+          <div class="form2">
+            <input type="text" name="producer" id="producer" />
+            <label>Режиссер</label>
+          </div>
+          <div class="form2">
+            <input type="text" name="producer" id="producer" />
+            <label>Режиссер</label>
+          </div>
+          <div class="form2">
+            <input type="text" name="producer" id="producer" />
+            <label>Режиссер</label>
+          </div> -->
+          <div class="form2">
+            <input
+              type="text"
+              name="scenario"
+              id="scenario"
+              onkeyup="checkParams()"
+              required
+            /><label>Сценарий</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="producer2"
+              id="producer2"
+              onkeyup="checkParams()"
+              required
+            /><label>Продюсер</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="operator"
+              id="operator"
+              onkeyup="checkParams()"
+              required
+            />
+            <label>Оператор</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="composer"
+              id="composer"
+              onkeyup="checkParams()"
+              required
+            /><label>Композитор</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="budget"
+              id="budget"
+              onkeyup="checkParams()"
+              required
+            /><label>Бюджет</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="worldFees"
+              id="worldFees"
+              onkeyup="checkParams()"
+              required
+            /><label>Мировые сборы</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="age"
+              id="age"
+              onkeyup="checkParams()"
+              required
+            />
+            <label>Рейтинг возраста</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="time"
+              id="time"
+              required
+              onkeyup="checkParams()"
+            />
+            <label>Длительность</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="date"
+              id="date"
+              required
+              onkeyup="checkParams()"
+              onfocus="(this.type='date')"
+              onblur="if(!this.value)this.type='text'"
+            />
+            <label>Дата выхода</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="image"
+              id="image"
+              required
+              onkeyup="checkParams()"
+            />
+            <label>Постер</label>
+          </div>
+          <button
+            id="button"
+            type="button"
+            disabled
+            onclick="return closeService()"
+          >
+            Загрузить фильм
+          </button>
+        </form>
+      </div>
+      <div class="films">
+        <p>Добавленные фильмы</p>
+        <div class="sort">
+          <div class="date">
+            Дата выхода
+            <select id="dates" onclick="startFilter()">
+              <option>Все даты</option>
+            </select>
+          </div>
+          <div class="genre">
+            Жанры
+            <select id="genres" onclick="startFilter()">
+              <option>Все жанры</option>
+            </select>
+          </div>
+          <div class="country">
+            Страны
+            <select id="countries" onclick="startFilter()">
+              <option>Все страны</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="results"></div>
+      <div class="form_div">
+        <form class="form">
+          <div class="form2">
+            <input
+              type="text"
+              name="name"
+              id="nameReview"
+              onkeyup="checkParamsReview()"
+              required
+            />
+            <label>Имя</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="occupation"
+              id="occupation"
+              onkeyup="checkParamsReview()"
+              required
+            />
+            <label>Род занятий</label>
+          </div>
+          <div class="form2">
+            <input
+              type="text"
+              name="text"
+              id="text"
+              onkeyup="checkParamsReview()"
+              required
+            /><label>Отзыв</label>
+          </div>
+          <div class="form2">
+            Оценка
+            <select id="assessment" onclick="checkParamsReview()">
+              <option>5</option>
+              <option>4</option>
+              <option>3</option>
+              <option>2</option>
+              <option>1</option>
+            </select>
+          </div>
+          <div class="form2">
+            <button type="button" disabled class="add_Reviews" onclick="addReview()">Отправить</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <script src="./script.js"></script>
+    <script src="./service.js"></script>
+  </body>
+</html>
