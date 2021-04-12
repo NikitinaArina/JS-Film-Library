@@ -55,6 +55,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 753px;
 }
 
 .container__forRes {
@@ -71,6 +72,8 @@ input {
 }
 .container__forImg img {
   margin: 0px 10px 15px 15px;
+  width: 350px;
+  height: 500px;
 }
 select {
   font-family: 'Noto Sans JP', sans-serif;
@@ -197,4 +200,13 @@ input:focus ~ label, input:valid ~ label {
   display: none;
   position: fixed;
 }
-
+.all_reviews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 753px;
+}
+.one_review {
+  padding: 10px 0px 0px 25px;
+}

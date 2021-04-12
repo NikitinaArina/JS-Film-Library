@@ -1,6 +1,5 @@
 let films = [];
 let filter2;
-let reviews = [];
 let str = "films";
 let fil;
 start();
@@ -84,25 +83,25 @@ let time;
 let date;
 let image;
 function checkParams() {
-    title = document.getElementById("name").value;
-    country = document.getElementById("country").value;
-    genre = document.getElementById("genre").value;
-    director = document.getElementById("producer").value;
-    scenario = document.getElementById("scenario").value;
-    producer2 = document.getElementById("producer2").value;
-    operator = document.getElementById("operator").value;
-    composer = document.getElementById("composer").value;
-    budget = document.getElementById("budget").value;
-    worldFees = document.getElementById("worldFees").value;
-    age = document.getElementById("age").value;
-    time = document.getElementById("time").value;
-    date = document.getElementById("date").valueAsNumber;
-    image = document.getElementById("image").value;
+    title = document.getElementById("name");
+    country = document.getElementById("country");
+    genre = document.getElementById("genre");
+    director = document.getElementById("producer");
+    scenario = document.getElementById("scenario");
+    producer2 = document.getElementById("producer2");
+    operator = document.getElementById("operator");
+    composer = document.getElementById("composer");
+    budget = document.getElementById("budget");
+    worldFees = document.getElementById("worldFees");
+    age = document.getElementById("age");
+    time = document.getElementById("time");
+    date = document.getElementById("date");
+    image = document.getElementById("image");
     let btn = document.getElementById("button");
-    if (title.length != 0 && country.length != 0 && genre.length != 0
-        && director.length != 0 && scenario.length != 0 && producer2.length != 0
-        && operator.length != 0 && composer.length != 0 && budget.length != 0
-        && worldFees.length != 0 && age.length != 0 && time.length != 0 && date.length != 0 && image.length != 0) {
+    if (title.value.length != 0 && country.value.length != 0 && genre.value.length != 0
+        && director.value.length != 0 && scenario.value.length != 0 && producer2.value.length != 0
+        && operator.value.length != 0 && composer.value.length != 0 && budget.value.length != 0
+        && worldFees.value.length != 0 && age.value.length != 0 && time.value.length != 0 && date.valueAsNumber.length != 0 && image.value.length != 0) {
         btn.removeAttribute("disabled");
     } else {
         btn.setAttribute("disabled", "disabled");
@@ -118,25 +117,39 @@ function start() {
 }
 function addFilm() {
     films.push(new Film(
-        title,
-        "0" + country,
-        "0" + genre,
-        director,
-        scenario,
-        producer2,
-        operator,
-        composer,
-        budget,
-        worldFees,
-        age,
-        time,
-        "0" + date,
-        image,
+        title.value,
+        "0" + country.value,
+        "0" + genre.value,
+        director.value,
+        scenario.value,
+        producer2.value,
+        operator.value,
+        composer.value,
+        budget.value,
+        worldFees.value,
+        age.value,
+        time.value,
+        "0" + date.valueAsNumber,
+        image.value,
         []
     ))
     localStorage.setItem("films", JSON.stringify(films));
     printResults(str);
     addToFilter();
+    title.value = "";
+    country.value = "";
+    genre.value = "";
+    director.value = "";
+    scenario.value = "";
+    producer2.value = "";
+    operator.value = "";
+    composer.value = "";
+    budget.value = "";
+    worldFees.value = "";
+    age.value = "";
+    time.value = "";
+    date.value = "";
+    image.value = "";
 }
 
 const NAME = "picture";
@@ -171,7 +184,9 @@ function printResults(string) {
             containerForRes = document.createElement("div"),
             containerForInfo = document.createElement("div"),
             mainContainer = document.createElement("div"),
+            allReviews = document.createElement("div"),
             addReview = document.createElement("button");
+        allReviews.classList.add("all_reviews");
         poster.src = "" + print.photo;
         title.innerText = print.title;
         Genre.innerText = "Жанр: " + print.genre.substr(1);
@@ -187,7 +202,7 @@ function printResults(string) {
         Budget.innerText = "Бюждет: " + print.budget;
         WorldFees.innerText = "Мировые сборы: " + print.worldFees;
         Age.innerText = "Рейтинг возраста: " + print.age;
-        Time.innerText = "Дата выхода: " + print.time;
+        Time.innerText = "Длительность : " + print.time;
         div2.classList.add("container__forImg");
         divbtn.classList.add("modal_btn-delete");
         mainContainer.classList.add("main_container");
@@ -222,6 +237,26 @@ function printResults(string) {
         containerForRes.appendChild(containerForInfo);
         mainContainer.appendChild(containerForRes);
         mainContainer.appendChild(addReview);
+        if(print.reviews != null) {
+        print.reviews.forEach(function (rev) {
+            let reviewName = document.createElement("p"),
+            reviewOccupation = document.createElement("p"),
+            reviewText = document.createElement("p"),
+            reviewAssessment = document.createElement("p"),
+            revContainer = document.createElement("div");
+            revContainer.classList.add("one_review");
+            reviewName.innerText = "Имя: " + rev.name;
+            reviewOccupation.innerText ="Род занятий: " + rev.occupation;
+            reviewText.innerText ="Отзыв: " + rev.text;
+            reviewAssessment.innerText ="Оценка: " + rev.assessment;
+            revContainer.appendChild(reviewName);
+            revContainer.appendChild(reviewOccupation);
+            revContainer.appendChild(reviewText);
+            revContainer.appendChild(reviewAssessment);
+            allReviews.appendChild(revContainer);
+        })
+        mainContainer.appendChild(allReviews);
+        }
         container.appendChild(mainContainer);
         count++;
     });
@@ -279,17 +314,15 @@ function openFormForReview(e) {
     }
 }
 function addReview() {
-    console.log(atrReview);
-    reviews.push(
-        new Reviews(atrReview, nameReview.value, occupation.value, textReview.value, assessment2)
-    )
     if (films[atrReview].reviews == null) {
     films[atrReview].reviews = [new Reviews(atrReview, nameReview.value, occupation.value, textReview.value, assessment2)];
     } else films[atrReview].reviews.push(new Reviews(atrReview, nameReview.value, occupation.value, textReview.value, assessment2));
+    localStorage.setItem("films", JSON.stringify(films));
     nameReview.value = "";
     occupation.value = "";
     textReview.value = "";
     assessment2.value = "";
+    printResults(str);
 }
 let allFilms;
 let arrayc = [], arrayg = [], arrayd = [];
